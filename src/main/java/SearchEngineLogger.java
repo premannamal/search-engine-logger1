@@ -1,39 +1,43 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+
 public class SearchEngineLogger {
     public static void main(String[] args) {
-
-        FileWriter fileWriter;
-        Scanner scanner = new Scanner(System.in);
+        DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss ");
+        BufferedWriter bufWriter;
+        FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter("logs.txt");
-            BufferedWriter bufWriter = new BufferedWriter(fileWriter);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            fileWriter = new FileWriter("logs.txt", false);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        BufferedWriter bufWriter = new BufferedWriter(fileWriter);
 
-        String text;
-        text = "id|name|gross pay" + "\n";
-        bufWriter.write(text);
+        bufWriter  = new BufferedWriter(fileWriter);
+        Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-
-
-
-
-                // Display the employee using printf
-                //System.out.printf("ID: %d | Name: %s | Gross Pay: $%.2f%n", emp.getemployeeId(), emp.getname(), emp.getGrossPay(hoursWorked, payRate));
-
-                //Write to the file
-                text = emp.getemployeeId() + "|" + emp.getname() + "|" + emp.getGrossPay(hoursWorked, payRate)+ "\n";
-                bufWriter.write(text);
+            String initialTime = LocalDateTime.now().format(fmt1);
+            System.out.println(initialTime);
+            try {
+                bufWriter.write(initialTime + "launch\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-// close the stream and release the resources
-        }
-        bufReader.close();
-        bufWriter.close();
+            String response;
+            do {
+                System.out.println("Enter a search term (X or x to exit)");
+                response = scanner.nextLine();
 
-                ---
+                if (!response.equalsIgnoreCase("X")) {
+                    String logLine = LocalDateTime.now().format(fmt1) + " Search: " +response + "\n";
+                    bufWriter.write(logLine);
+                }
+            } while (!response.equalsIgnoreCase("X"));
+
+            bufWriter.write(LocalDateTime.now().format(fmt1) + "exit\n");
+
+
+        bufWriter.close();
     }
 }

@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class SearchEngineLogger {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss ");
         BufferedWriter bufWriter;
         FileWriter fileWriter = null;

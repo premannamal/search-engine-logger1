@@ -8,11 +8,8 @@ public class SearchEngineLogger {
         DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss ");
         BufferedWriter bufWriter;
         FileWriter fileWriter = null;
-        try {
+
             fileWriter = new FileWriter("logs.txt", false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         bufWriter  = new BufferedWriter(fileWriter);
         Scanner scanner = new Scanner(System.in);
